@@ -18,9 +18,6 @@ public class Book {
         this.title = title;
     }
 
-    public Details getDetails(){
-        return details;
-    }
     @Override
     public String toString() {
 
