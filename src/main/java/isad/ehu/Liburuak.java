@@ -4,28 +4,19 @@ import isad.ehu.controller.LiburuKud;
 import isad.ehu.controller.XehetasunakKud;
 import isad.ehu.utils.Sarea;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+
 
 public class Liburuak extends Application{
 
-    private Text label;
     private Book liburua;
     private Scene libScene;
     private Scene XeheScene;
@@ -81,18 +72,10 @@ public class Liburuak extends Application{
         ioException.printStackTrace();
 
     }}
-    private Image createImage(String url) throws IOException {
-        url=url.replace("-S","-M");
-        URLConnection conn = new URL(url).openConnection();
-        conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36");
-        try (InputStream stream = conn.getInputStream()) {
-            return new Image(stream);
-        }
 
-    }
     public void XehetasunakErakutsi() throws IOException {
 
-        XehetasunakKud.liburuaKargatu(liburua.details.number_of_pages,liburua.details.publishers,liburua.details.title, createImage(liburua.thumbnail_url));
+        XehetasunakKud.liburuaKargatu(liburua.details.number_of_pages,liburua.details.publishers,liburua.details.title, sarea.createImage(liburua.thumbnail_url));
         stage.setScene(XeheScene);
         stage.show();
     }
