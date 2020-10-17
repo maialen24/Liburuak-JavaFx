@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isad.ehu.controller.XehetasunakKud">
+   <children>
+      <Label layoutX="104.0" layoutY="50.0" text="Liburuaren Xehetasunak:">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="117.0" layoutY="111.0" text="Izenburua:" />
+      <Label layoutX="117.0" layoutY="145.0" text="Argitaletxea:" />
+      <Label layoutX="117.0" layoutY="184.0" text="OrriKop :" />
+      <Label layoutX="117.0" layoutY="217.0" text="Irudia : " />
+      <Button fx:id="atzeraButton" layoutX="333.0" layoutY="498.0" mnemonicParsing="false" onAction="#onClick" text="Atzera" />
+      <Label fx:id="izenburuText" layoutX="268.0" layoutY="111.0" />
+      <Label fx:id="argitaletxeText" layoutX="268.0" layoutY="145.0" />
+      <Label fx:id="OrriKopText" layoutX="268.0" layoutY="184.0" />
+      <ImageView fx:id="imageJarri" fitHeight="203.0" fitWidth="158.0" layoutX="219.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
