@@ -1,7 +1,8 @@
-package isad.ehu.controller;
+package isad.ehu.controller.ui;
 
 import isad.ehu.Book;
 import isad.ehu.Liburuak;
+import isad.ehu.controller.db.ZerbitzuKud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LiburuKud implements Initializable {
@@ -41,12 +43,9 @@ public class LiburuKud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Book> books = FXCollections.observableArrayList();
-        books.addAll(
-                new Book("1491910399", "R for Data Science"),
-                new Book("1491946008", "Fluent Python"),
-                new Book("9781491906187", "Data Algorithms")
-        );
+        List<Book> LiburuakList = ZerbitzuKud.getInstance().lortuZerbitzuak();
+        ObservableList<Book> liburuak = FXCollections.observableArrayList(LiburuakList);
+
         aukerak.setConverter(new StringConverter<Book>() {
             @Override
             public String toString(Book book) {
@@ -60,7 +59,7 @@ public class LiburuKud implements Initializable {
                 return null;
             }
         });
-        aukerak.setItems(books);
+        aukerak.setItems(liburuak);
         aukerak.setEditable(false);
     }
 }

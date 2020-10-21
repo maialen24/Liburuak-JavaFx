@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import isad.ehu.Book;
 import javafx.scene.image.Image;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -36,4 +33,27 @@ public class Sarea {
         }
 
     }
+    public void saveImage(String imageUrl, String path) {
+        // This method only saves the "dummy" image
+        try{
+            URL url = new URL(imageUrl);
+            InputStream is = url.openStream();
+            OutputStream os = new FileOutputStream(path);
+
+            byte[] b = new byte[2048];
+            int length;
+
+            while ((length = is.read(b)) != -1) {
+                os.write(b, 0, length);
+            }
+
+            is.close();
+            os.close();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
 }

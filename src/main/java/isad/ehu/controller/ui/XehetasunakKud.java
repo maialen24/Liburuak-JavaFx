@@ -1,4 +1,4 @@
-package isad.ehu.controller;
+package isad.ehu.controller.ui;
 
 import isad.ehu.Liburuak;
 import javafx.event.ActionEvent;

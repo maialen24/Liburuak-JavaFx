@@ -1,7 +1,8 @@
 package isad.ehu;
 
-import isad.ehu.controller.LiburuKud;
-import isad.ehu.controller.XehetasunakKud;
+import isad.ehu.controller.db.ZerbitzuKud;
+import isad.ehu.controller.ui.LiburuKud;
+import isad.ehu.controller.ui.XehetasunakKud;
 import isad.ehu.utils.Sarea;
 import javafx.application.Application;
 
@@ -12,6 +13,7 @@ import javafx.scene.Scene;
 
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 
@@ -66,10 +68,21 @@ public class Liburuak extends Application{
 
 
     public void liburuaLortu(Book book){
-        try{
-            liburua = sarea.readFromUrl(book.isbn);
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
+
+        if(ZerbitzuKud.getInstance().badago(book.isbn)){
+            System.out.println("sartu da, liburua dago");
+            liburua=ZerbitzuKud.getInstance().getLiburua(book.isbn);
+
+        }else{
+            try{
+                liburua = sarea.readFromUrl(book.isbn);
+                ZerbitzuKud.getInstance().liburuaKargatu(liburua.details,book.isbn);
+                liburua.thumbnail_url=liburua.thumbnail_url.replace("-S","-M");
+                sarea.saveImage(liburua.thumbnail_url,"/home/maialen/images/"+book.isbn);
+                liburua.details.argazkia=liburua.isbn;
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
 
     }}
 
