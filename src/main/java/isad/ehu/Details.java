@@ -3,7 +3,7 @@ package isad.ehu;
 import java.util.Arrays;
 
 public class Details {
-    String[] publishers ;
+    String[] publishers =new String[1];
     Integer number_of_pages;
     String title;
     String argazkia="";
@@ -19,7 +19,8 @@ public class Details {
 
     public void setDetails(String pArgitaletxe, String pIzenburua, int pOrriak, String pArgazkia){
         argazkia=pArgazkia;
-        publishers[publishers.length-1]=pArgitaletxe;
+
+        publishers[0]=pArgitaletxe;
         title=pIzenburua;
         number_of_pages=pOrriak;
     }

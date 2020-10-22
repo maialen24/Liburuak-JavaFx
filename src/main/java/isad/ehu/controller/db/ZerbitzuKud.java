@@ -55,6 +55,7 @@ public class ZerbitzuKud {
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
     }
+
     public Book getLiburua(String isbn){
         Book liburua=null;
         String query = "Select * from Liburua where ISBN='"+isbn+"'";
@@ -89,7 +90,7 @@ public class ZerbitzuKud {
     }
 
     public void liburuaKargatu(Details details, String isbn){
-        String query="update Liburua set OrriKop="+details.getOrriKop()+" and argitaletxe='"+details.getArgitaletxea().replace("'","''")+"'and argazkia='"+details.getArgazkia()+"' where ISBN='"+isbn+"'";
+        String query="update Liburua set OrriKop="+details.getOrriKop()+", argitaletxe='"+details.getArgitaletxea().replace("'","''")+"', argazkia='"+details.getArgazkia()+"' where ISBN='"+isbn+"'";
         //String query = "insert into Liburua (argitaletxe,OrriKop,argazkia) values('"+details.getArgitaletxea().replace("'","''")+"',"+details.getOrriKop()+",'"+details.getArgazkia()+"') where ISBN='"+isbn+"'";
         System.out.println(query);
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();

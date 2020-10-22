@@ -24,6 +24,7 @@ public class Sarea {
         Gson gson = new Gson();
         return gson.fromJson(inputLine, Book.class);
     }
+
     public Image createImage(String url) throws IOException {
         url=url.replace("-S","-M");
         URLConnection conn = new URL(url).openConnection();

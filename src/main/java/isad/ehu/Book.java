@@ -16,6 +16,7 @@ public class Book {
     public Book(String isbn, String title) {
         this.isbn = isbn;
         this.title = title;
+        details=new Details();
     }
 
     @Override

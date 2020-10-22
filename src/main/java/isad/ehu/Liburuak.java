@@ -4,6 +4,7 @@ import isad.ehu.controller.db.ZerbitzuKud;
 import isad.ehu.controller.ui.LiburuKud;
 import isad.ehu.controller.ui.XehetasunakKud;
 import isad.ehu.utils.Sarea;
+import isad.ehu.utils.Utils;
 import javafx.application.Application;
 
 import javafx.fxml.FXMLLoader;
@@ -11,10 +12,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 
 
 public class Liburuak extends Application{
@@ -76,19 +79,28 @@ public class Liburuak extends Application{
         }else{
             try{
                 liburua = sarea.readFromUrl(book.isbn);
-                ZerbitzuKud.getInstance().liburuaKargatu(liburua.details,book.isbn);
+
                 liburua.thumbnail_url=liburua.thumbnail_url.replace("-S","-M");
                 sarea.saveImage(liburua.thumbnail_url,"/home/maialen/images/"+book.isbn);
-                liburua.details.argazkia=liburua.isbn;
+                liburua.details.argazkia=book.isbn;
+                ZerbitzuKud.getInstance().liburuaKargatu(liburua.details,book.isbn);
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
 
     }}
+    public Image getArgazkia(String argazkia){
+        Properties properties = Utils.lortuEzarpenak();
+       // System.out.println(properties.getProperty("argazkiaPath")+argazkia);
+        File file = new File(properties.getProperty("imagePath")+argazkia);
+        Image image = new Image(file.toURI().toString());
+        return image;
+    }
 
     public void XehetasunakErakutsi() throws IOException {
 
-        XehetasunakKud.liburuaKargatu(liburua.details.number_of_pages,liburua.details.publishers,liburua.details.title, sarea.createImage(liburua.thumbnail_url));
+        //XehetasunakKud.liburuaKargatu(liburua.details.number_of_pages,liburua.details.publishers,liburua.details.title, sarea.createImage(liburua.thumbnail_url));
+        XehetasunakKud.liburuaKargatu(liburua.details.number_of_pages,liburua.details.publishers,liburua.details.title, getArgazkia(liburua.details.argazkia));
         stage.setScene(XeheScene);
         stage.show();
     }
