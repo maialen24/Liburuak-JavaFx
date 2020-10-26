@@ -19,7 +19,7 @@ public class ZerbitzuKud {
     private ZerbitzuKud() {
     }
 
-    public List<Book> lortuZerbitzuak() {
+    public List<Book> lortuLiburuak() {
 
         String query = "select ISBN, izenburua from Liburua";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
@@ -32,7 +32,6 @@ public class ZerbitzuKud {
                 String isbn = rs.getString("ISBN");
                 String izena = rs.getString("izenburua");
                 Book lib=new Book(isbn,izena);
-                System.out.println(isbn + ":" + izena);
                 emaitza.add(lib);
 
             }
@@ -43,15 +42,13 @@ public class ZerbitzuKud {
         return emaitza;
     }
 
-    public void gehitu(String pZerbitzu){
-        String query = "insert into services (izena) values('"+pZerbitzu+"')";
-        System.out.println(query);
+    public void gehitu(String isbn, String titulu){
+        String query = "insert into Liburua (ISBN,izenburua) values('"+isbn+"','"+titulu+"')";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
     }
-    public void ezabatu(String pZerbitzu){
-        String query = "delete from services where izena='"+pZerbitzu+"'";
-        System.out.println(query);
+    public void ezabatu(String isbn){
+        String query = "delete from Liburua where izena='"+isbn+"'";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
     }
@@ -59,7 +56,6 @@ public class ZerbitzuKud {
     public Book getLiburua(String isbn){
         Book liburua=null;
         String query = "Select * from Liburua where ISBN='"+isbn+"'";
-        System.out.println(query);
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
         try {
@@ -71,28 +67,22 @@ public class ZerbitzuKud {
         }
         return liburua;
     }
-    public boolean badago(String isbn){
-        boolean emaitza=false;
-        String query = "Select argazkia from Liburua where isbn='"+isbn+"'";
-        System.out.println(query);
+    public boolean badago(String isbn)  {
+        String query = "Select argitaletxe from Liburua where isbn='"+isbn+"' AND argitaletxe is not null";
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
-        try{
-            rs.next();
-            System.out.println(rs.getString("argazkia"));
-            if (rs.getString("argazkia")!=null) {
-                emaitza = true;
-            }
-        }catch(SQLException throwables){
-        throwables.printStackTrace();
-    }
-        return emaitza;
+        try {
+            return rs.next();
+        }
+        catch(SQLException throwables){
+            throwables.printStackTrace();
+        }
+        return false;
+
     }
 
     public void liburuaKargatu(Details details, String isbn){
         String query="update Liburua set OrriKop="+details.getOrriKop()+", argitaletxe='"+details.getArgitaletxea().replace("'","''")+"', argazkia='"+details.getArgazkia()+"' where ISBN='"+isbn+"'";
-        //String query = "insert into Liburua (argitaletxe,OrriKop,argazkia) values('"+details.getArgitaletxea().replace("'","''")+"',"+details.getOrriKop()+",'"+details.getArgazkia()+"') where ISBN='"+isbn+"'";
-        System.out.println(query);
         DBKudeatzaile dbKudeatzaile = DBKudeatzaile.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
     }

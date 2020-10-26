@@ -43,7 +43,7 @@ public class LiburuKud implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        List<Book> LiburuakList = ZerbitzuKud.getInstance().lortuZerbitzuak();
+        List<Book> LiburuakList = ZerbitzuKud.getInstance().lortuLiburuak();
         ObservableList<Book> liburuak = FXCollections.observableArrayList(LiburuakList);
 
         aukerak.setConverter(new StringConverter<Book>() {

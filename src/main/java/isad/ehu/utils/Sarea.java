@@ -25,6 +25,7 @@ public class Sarea {
         return gson.fromJson(inputLine, Book.class);
     }
 
+    //Metodo honek zuzenean url-tik kargatzen genituenenan liburuak erabiltzen zen
     public Image createImage(String url) throws IOException {
         url=url.replace("-S","-M");
         URLConnection conn = new URL(url).openConnection();
@@ -34,8 +35,8 @@ public class Sarea {
         }
 
     }
+
     public void saveImage(String imageUrl, String path) {
-        // This method only saves the "dummy" image
         try{
             URL url = new URL(imageUrl);
             InputStream is = url.openStream();

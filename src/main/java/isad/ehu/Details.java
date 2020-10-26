@@ -19,7 +19,6 @@ public class Details {
 
     public void setDetails(String pArgitaletxe, String pIzenburua, int pOrriak, String pArgazkia){
         argazkia=pArgazkia;
-
         publishers[0]=pArgitaletxe;
         title=pIzenburua;
         number_of_pages=pOrriak;
@@ -28,7 +27,6 @@ public class Details {
     public String getArgazkia(){return argazkia;}
 
     public int getOrriKop(){return number_of_pages;}
-
 
     public String getArgitaletxea(){return publishers[0];}
 }

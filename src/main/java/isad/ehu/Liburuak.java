@@ -73,15 +73,15 @@ public class Liburuak extends Application{
     public void liburuaLortu(Book book){
 
         if(ZerbitzuKud.getInstance().badago(book.isbn)){
-            System.out.println("sartu da, liburua dago");
             liburua=ZerbitzuKud.getInstance().getLiburua(book.isbn);
+            System.out.println("dago");
 
         }else{
             try{
                 liburua = sarea.readFromUrl(book.isbn);
-
                 liburua.thumbnail_url=liburua.thumbnail_url.replace("-S","-M");
-                sarea.saveImage(liburua.thumbnail_url,"/home/maialen/images/"+book.isbn);
+                Properties properties = Utils.lortuEzarpenak();
+                sarea.saveImage(liburua.thumbnail_url,properties.getProperty("imagePath")+book.isbn);
                 liburua.details.argazkia=book.isbn;
                 ZerbitzuKud.getInstance().liburuaKargatu(liburua.details,book.isbn);
             } catch (IOException ioException) {
@@ -91,7 +91,6 @@ public class Liburuak extends Application{
     }}
     public Image getArgazkia(String argazkia){
         Properties properties = Utils.lortuEzarpenak();
-       // System.out.println(properties.getProperty("argazkiaPath")+argazkia);
         File file = new File(properties.getProperty("imagePath")+argazkia);
         Image image = new Image(file.toURI().toString());
         return image;
